@@ -1,42 +1,51 @@
-<!Doctype html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Code Example</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
 <body>
+<pre><code class="language-js">
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
 ; Hotkey: Ctrl+Shift+J
 ^+j::
 {
-		try {
-				; Get JSON string from clipboard
-				jsonText := A_Clipboard
-				
-				if (jsonText = "")
-				{
-						MsgBox "Clipboard is empty!"
-						return
-				}
-				
-				; Parse the JSON string
-				data := JSON.Parse(jsonText)
+	try {
+		; Get JSON string from clipboard
+		jsonText := A_Clipboard
+		
+		if (jsonText = "")
+		{
+			MsgBox "Clipboard is empty!"
+			return
+		}
+		
+		; Parse the JSON string
+		data := JSON.Parse(jsonText)
 
-				; Iterate through objects in the array
-				for obj in data
-				{
-						SendText obj.name
-						Send "{Tab}"
-						
-						; Send the "values" elements separated by tabs
-						for val in obj.values
-						{
-								SendText val
-								Send "{Tab}"
-						}
-				}
+		; Iterate through objects in the array
+		for obj in data
+		{
+			SendText obj.name
+			Send "{Tab}"
+			
+			; Send the "values" elements separated by tabs
+			for val in obj.values
+			{
+				SendText val
+				Send "{Tab}"
+			}
 		}
-		catch e {
-				MsgBox "Error: " e.Message
-		}
+	}
+	catch e {
+		MsgBox "Error: " e.Message
+	}
 }
+</code></pre>
 </body>
 </html>
